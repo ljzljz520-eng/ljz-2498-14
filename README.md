@@ -63,3 +63,29 @@ pnpm build
 ```ini
 registry=https://registry.npmmirror.com/
 ```
+
+---
+
+## 审阅线程功能
+
+当前版本增加文稿审阅线程演示：
+
+- 在右侧预览选择可见文字创建批注，保存字符范围、节点范围、引文、上下文和文稿基线；
+- 编辑后基于版本差异重定位，而不是只搜索同一句文本；
+- 每个候选都输出来源、置信度、证据和人工确认入口；
+- 选区删除、相同引文多处复制、段落重写等无法唯一确认时保留悬挂线程；
+- 回复、解决、重开、重新请求审阅和锚点迁移全部使用事件流记录；
+- 支持离线编辑三方合并、离线回复幂等、远端解决与本地重开冲突；
+- v1 旧前端无法把已迁移批注重新锚到缓存的过期位置。
+
+详细设计见 [`docs/review-threads-design.md`](docs/review-threads-design.md)，PostgreSQL 表结构见 [`server/review_threads.sql`](server/review_threads.sql)。
+
+### 审阅测试
+
+```bash
+npm test
+# 或
+node --test test/review.test.js
+```
+
+覆盖：整段移动、引文多处相同、选区删除、离线回复合并、同时解决/重开、旧前端保护、解决后重写并重新请求审阅。

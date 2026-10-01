@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 3000",
     "build": "vite build",
+    "test": "node --test test/review.test.js",
     "preview": "vite preview"
   },
   "dependencies": {
